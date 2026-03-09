@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Comptoir - Service du Soir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0d0f;
+            --bg-secondary: #16161a;
+            --bg-card: #1c1c21;
+            --bg-hover: #24242a;
+            --border: #2a2a32;
+            --text-primary: #f0f0f2;
+            --text-secondary: #8a8a96;
+            --text-muted: #5a5a66;
+            --accent-gold: #c9a84c;
+            --accent-gold-dim: #a08038;
+            --status-free: #2d6a4f;
+            --status-free-bg: #1a3d2e;
+            --status-reserved: #4361a8;
+            --status-reserved-bg: #1e2d52;
+            --status-active: #c9a84c;
+            --status-active-bg: #3d3420;
+            --status-clear: #c0392b;
+            --status-clear-bg: #3d1a1a;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 0.5px;
+        }
+
+        .service-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(201, 168, 76, 0.1);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        .service-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .clock {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .date {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            padding: 20px 32px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-size: 20px;
+        }
+
+        .stat-icon.free { background: var(--status-free-bg); }
+        .stat-icon.covers { background: rgba(201, 168, 76, 0.12); }
+        .stat-icon.revenue { background: rgba(67, 97, 168, 0.15); }
+        .stat-icon.reserved { background: var(--status-reserved-bg); }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            min-height: calc(100vh - 160px);
+        }
+
+        /* Floor Plan */
+        .floor-plan-section {
+            padding: 24px 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        .legend-dot.free { background: var(--status-free); }
+        .legend-dot.reserved { background: var(--status-reserved); }
+        .legend-dot.active { background: var(--status-active); }
+        .legend-dot.clear { background: var(--status-clear); }
+
+        /* Floor Plan Grid */
+        .floor-plan {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            min-height: 520px;
+        }
+
+        .floor-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 24px;
+            height: 100%;
+            min-height: 460px;
+        }
+
+        .table-spot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .table-spot:hover {
+            transform: scale(1.06);
+        }
+
+        .table-spot:hover .table-shape {
+            box-shadow: 0 0 24px rgba(201, 168, 76, 0.15);
+        }
+
+        .table-shape {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .table-shape.round {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+        }
+
+        .table-shape.square {
+            width: 110px;
+            height: 100px;
+            border-radius: var(--radius);
+        }
+
+        /* Status colors */
+        .table-shape.status-free {
+            background: var(--status-free-bg);
+            border-color: var(--status-free);
+        }
+
+        .table-shape.status-reserved {
+            background: var(--status-reserved-bg);
+            border-color: var(--status-reserved);
+        }
+
+        .table-shape.status-active {
+            background: var(--status-active-bg);
+            border-color: var(--status-active);
+        }
+
+        .table-shape.status-clear {
+            background: var(--status-clear-bg);
+            border-color: var(--status-clear);
+        }
+
+        .table-shape.selected {
+            border-color: var(--accent-gold) !important;
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.25) !important;
+        }
+
+        .table-number {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .table-seats {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .table-client-preview {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .table-alert {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 20px;
+            height: 20px;
+            background: var(--status-clear);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            border: 2px solid var(--bg-card);
+        }
+
+        .table-alert.allergy { background: #e67e22; }
+        .table-alert.birthday { background: #9b59b6; }
+
+        /* Side Panel */
+        .side-panel {
+            border-left: 1px solid var(--border);
+            background: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .btn-add {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--accent-gold);
+            color: #0d0d0f;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-add:hover {
+            background: #d4b356;
+        }
+
+        /* Table Detail */
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px;
+        }
+
+        .detail-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            gap: 12px;
+        }
+
+        .detail-empty-icon {
+            font-size: 40px;
+            opacity: 0.4;
+        }
+
+        .detail-empty p {
+            font-size: 14px;
+        }
+
+        .detail-view {
+            display: none;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .detail-table-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .detail-table-badge {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .detail-table-meta h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .detail-table-meta span {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-select {
+            padding: 6px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .status-select:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .detail-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-field {
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        .detail-field-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .detail-field-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .detail-field-value.allergy {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        .detail-field-value.note {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .detail-field-value.birthday {
+            color: #9b59b6;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag.allergy {
+            background: rgba(230, 126, 34, 0.15);
+            color: #e67e22;
+        }
+
+        .tag.birthday {
+            background: rgba(155, 89, 182, 0.15);
+            color: #c39bd3;
+        }
+
+        .tag.vip {
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--accent-gold);
+        }
+
+        /* Reservation List */
+        .reservation-list {
+            display: none;
+        }
+
+        .reservation-list.active {
+            display: block;
+        }
+
+        .resa-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .resa-item:hover {
+            border-color: var(--accent-gold-dim);
+        }
+
+        .resa-time {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            min-width: 48px;
+        }
+
+        .resa-info {
+            flex: 1;
+        }
+
+        .resa-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .resa-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .resa-table-num {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        /* Panel Tab Switch */
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: inherit;
+        }
+
+        .panel-tab.active {
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .panel-tab:hover {
+            color: var(--text-primary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h2 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-gold);
+        }
+
+        .modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: #0d0d0f;
+        }
+
+        .btn-primary:hover {
+            background: #d4b356;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-gold);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* =============================================
+           RESPONSIVE — Tablet (max-width: 768px)
+           ============================================= */
+        @media (max-width: 768px) {
+            /* Header: stack vertically */
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px 20px;
+                text-align: center;
+            }
+
+            .header-left {
+                justify-content: center;
+            }
+
+            .header-right {
+                justify-content: center;
+            }
+
+            /* Stats bar: 2 columns on tablet */
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 16px 20px;
+            }
+
+            /* Main layout: stack vertically (floor plan on top, side panel below) */
+            .main {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            /* Floor plan section */
+            .floor-plan-section {
+                padding: 20px;
+            }
+
+            .floor-plan {
+                padding: 20px;
+                min-height: 400px;
+            }
+
+            /* Floor plan grid: 3 columns on tablet */
+            .floor-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: auto;
+                gap: 16px;
+                min-height: 360px;
+            }
+
+            /* Slightly smaller table shapes */
+            .table-shape.round {
+                width: 95px;
+                height: 95px;
+            }
+
+            .table-shape.square {
+                width: 95px;
+                height: 86px;
+            }
+
+            .table-number {
+                font-size: 16px;
+            }
+
+            /* Side panel: full width, no left border, top border instead */
+            .side-panel {
+                border-left: none;
+                border-top: 1px solid var(--border);
+                max-height: 50vh;
+            }
+
+            /* Section header legend wraps */
+            .section-header {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .legend {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            /* Modal: responsive width */
+            .modal {
+                width: calc(100% - 40px);
+                max-width: 440px;
+            }
+
+            /* Toast: centered on smaller screens */
+            .toast {
+                left: 20px;
+                right: 20px;
+                text-align: center;
+            }
+        }
+
+        /* =============================================
+           RESPONSIVE — Phone (max-width: 480px)
+           ============================================= */
+        @media (max-width: 480px) {
+            /* Header: tighter spacing */
+            .header {
+                padding: 12px 16px;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .service-badge {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+
+            .clock {
+                font-size: 17px;
+            }
+
+            .date {
+                font-size: 12px;
+            }
+
+            /* Stats bar: single column on phone */
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 12px 16px;
+            }
+
+            .stat-card {
+                padding: 12px 16px;
+                gap: 10px;
+            }
+
+            .stat-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 17px;
+            }
+
+            .stat-value {
+                font-size: 18px;
+            }
+
+            /* Floor plan section */
+            .floor-plan-section {
+                padding: 16px;
+            }
+
+            .floor-plan {
+                padding: 16px;
+                min-height: 320px;
+            }
+
+            /* Floor plan grid: 2 columns on phone */
+            .floor-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                min-height: 280px;
+            }
+
+            /* Smaller table shapes on phone */
+            .table-shape.round {
+                width: 80px;
+                height: 80px;
+            }
+
+            .table-shape.square {
+                width: 80px;
+                height: 72px;
+            }
+
+            .table-number {
+                font-size: 14px;
+            }
+
+            .table-seats {
+                font-size: 10px;
+            }
+
+            .table-client-preview {
+                font-size: 9px;
+                max-width: 60px;
+            }
+
+            /* Side panel */
+            .side-panel {
+                max-height: 60vh;
+            }
+
+            .panel-header {
+                padding: 16px;
+            }
+
+            .panel-content {
+                padding: 16px;
+            }
+
+            /* Modal: full width with small margin */
+            .modal {
+                width: calc(100% - 24px);
+                max-width: 100%;
+            }
+
+            .modal-header {
+                padding: 16px;
+            }
+
+            .modal-body {
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .modal-footer {
+                padding: 12px 16px;
+            }
+
+            /* Form rows stack on phone */
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            /* Section header stacks on phone */
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            /* Toast */
+            .toast {
+                left: 12px;
+                right: 12px;
+                bottom: 16px;
+                font-size: 12px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <div class="logo">Le Comptoir</div>
+        <div class="service-badge">
+            <span class="dot"></span>
+            Service du soir
+        </div>
+    </div>
+    <div class="header-right">
+        <div>
+            <div class="clock" id="clock">19:30</div>
+            <div class="date" id="date">Dimanche 9 mars 2026</div>
+        </div>
+    </div>
+</header>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+    <div class="stat-card">
+        <div class="stat-icon free">🟢</div>
+        <div class="stat-info">
+            <div class="stat-value" id="stat-free">4</div>
+            <div class="stat-label">Tables libres</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon reserved">📋</div>
+        <div class="stat-info">
+            <div class="stat-value" id="stat-reserved">8</div>
+            <div class="stat-label">Reservations</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon covers">👤</div>
+        <div class="stat-info">
+            <div class="stat-value" id="stat-covers">28</div>
+            <div class="stat-label">Couverts ce soir</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon revenue">💰</div>
+        <div class="stat-info">
+            <div class="stat-value" id="stat-revenue">1 960 &euro;</div>
+            <div class="stat-label">CA estim&eacute;</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+    <!-- Floor Plan -->
+    <div class="floor-plan-section">
+        <div class="section-header">
+            <div class="section-title">Plan de salle &mdash; 40 couverts</div>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-dot free"></div> Libre</div>
+                <div class="legend-item"><div class="legend-dot reserved"></div> R&eacute;serv&eacute;e</div>
+                <div class="legend-item"><div class="legend-dot active"></div> En cours</div>
+                <div class="legend-item"><div class="legend-dot clear"></div> &Agrave; d&eacute;barrasser</div>
+            </div>
+        </div>
+
+        <div class="floor-plan">
+            <div class="floor-grid" id="floor-grid">
+                <!-- Tables are generated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Panel -->
+    <aside class="side-panel">
+        <div class="panel-header">
+            <div class="panel-title">D&eacute;tails</div>
+            <button class="btn-add" onclick="openModal()">+ R&eacute;servation</button>
+        </div>
+
+        <div class="panel-tabs">
+            <button class="panel-tab active" onclick="switchTab('detail')" id="tab-detail">Table</button>
+            <button class="panel-tab" onclick="switchTab('list')" id="tab-list">R&eacute;servations (8)</button>
+        </div>
+
+        <div class="panel-content">
+            <!-- Empty State -->
+            <div class="detail-empty" id="detail-empty">
+                <div class="detail-empty-icon">🍽</div>
+                <p>Cliquez sur une table<br>pour voir les d&eacute;tails</p>
+            </div>
+
+            <!-- Detail View -->
+            <div class="detail-view" id="detail-view">
+                <div class="detail-header">
+                    <div class="detail-table-info">
+                        <div class="detail-table-badge" id="detail-badge">T1</div>
+                        <div class="detail-table-meta">
+                            <h3 id="detail-name">&mdash;</h3>
+                            <span id="detail-type-seats"></span>
+                        </div>
+                    </div>
+                    <select class="status-select" id="detail-status" onchange="changeStatus()">
+                        <option value="free">Libre</option>
+                        <option value="reserved">R&eacute;serv&eacute;e</option>
+                        <option value="active">En cours</option>
+                        <option value="clear">&Agrave; d&eacute;barrasser</option>
+                    </select>
+                </div>
+
+                <div class="detail-fields" id="detail-fields">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <!-- Reservation List -->
+            <div class="reservation-list" id="reservation-list">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </aside>
+</div>
+
+<!-- Reservation Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Nouvelle r&eacute;servation</h2>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Nom du client</label>
+                <input type="text" id="form-name" placeholder="Ex: Dupont">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Personnes</label>
+                    <input type="number" id="form-guests" min="1" max="8" value="2">
+                </div>
+                <div class="form-group">
+                    <label>Heure</label>
+                    <input type="time" id="form-time" value="20:00">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Table</label>
+                <select id="form-table">
+                    <!-- Filled by JS -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Allergies</label>
+                <input type="text" id="form-allergies" placeholder="Aucune">
+            </div>
+            <div class="form-group">
+                <label>Notes sp&eacute;ciales</label>
+                <textarea id="form-notes" placeholder="Ex: anniversaire, demande particuli&egrave;re..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+            <button class="btn btn-primary" onclick="addReservation()">Confirmer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ========== DATA ==========
+    const tables = [
+        { id: 1,  shape: 'round',  seats: 2 },
+        { id: 2,  shape: 'square', seats: 4 },
+        { id: 3,  shape: 'round',  seats: 2 },
+        { id: 4,  shape: 'square', seats: 4 },
+        { id: 5,  shape: 'square', seats: 4 },
+        { id: 6,  shape: 'round',  seats: 6 },
+        { id: 7,  shape: 'round',  seats: 2 },
+        { id: 8,  shape: 'square', seats: 4 },
+        { id: 9,  shape: 'round',  seats: 4 },
+        { id: 10, shape: 'square', seats: 2 },
+        { id: 11, shape: 'round',  seats: 2 },
+        { id: 12, shape: 'square', seats: 4 },
+    ];
+
+    let reservations = [
+        {
+            id: 1,
+            tableId: 2,
+            name: 'Martin',
+            guests: 4,
+            time: '19:00',
+            allergies: '',
+            notes: '',
+            status: 'active',
+            tags: []
+        },
+        {
+            id: 2,
+            tableId: 5,
+            name: 'Lefebvre',
+            guests: 3,
+            time: '19:30',
+            allergies: 'Gluten',
+            notes: 'Maladie coeliaque, demande un menu sans gluten pour toute la table',
+            status: 'active',
+            tags: ['allergy']
+        },
+        {
+            id: 3,
+            tableId: 6,
+            name: 'Moreau',
+            guests: 6,
+            time: '20:00',
+            allergies: '',
+            notes: 'Groupe pour un diner d\'affaires. Table au calme souhaitee',
+            status: 'reserved',
+            tags: ['vip']
+        },
+        {
+            id: 4,
+            tableId: 1,
+            name: 'Dubois',
+            guests: 2,
+            time: '20:00',
+            allergies: '',
+            notes: 'Anniversaire de mariage, prevoir dessert avec bougie',
+            status: 'reserved',
+            tags: ['birthday']
+        },
+        {
+            id: 5,
+            tableId: 9,
+            name: 'Garnier',
+            guests: 3,
+            time: '20:30',
+            allergies: '',
+            notes: 'Demande une table pres de la fenetre',
+            status: 'reserved',
+            tags: []
+        },
+        {
+            id: 6,
+            tableId: 4,
+            name: 'Bernard',
+            guests: 2,
+            time: '19:00',
+            allergies: '',
+            notes: '',
+            status: 'clear',
+            tags: []
+        },
+        {
+            id: 7,
+            tableId: 8,
+            name: 'Petit',
+            guests: 4,
+            time: '21:00',
+            allergies: 'Fruits de mer',
+            notes: 'Client regulier, apprecie le vin blanc du domaine',
+            status: 'reserved',
+            tags: []
+        },
+        {
+            id: 8,
+            tableId: 12,
+            name: 'Roux',
+            guests: 4,
+            time: '21:00',
+            allergies: '',
+            notes: 'Premiere visite, recommande par M. Martin',
+            status: 'reserved',
+            tags: []
+        }
+    ];
+
+    let selectedTableId = null;
+
+    // ========== RENDER ==========
+    function render() {
+        renderFloorPlan();
+        renderStats();
+        renderReservationList();
+        if (selectedTableId) {
+            renderDetail(selectedTableId);
+        }
+    }
+
+    function renderFloorPlan() {
+        const grid = document.getElementById('floor-grid');
+        grid.innerHTML = '';
+
+        tables.forEach(table => {
+            const resa = reservations.find(r => r.tableId === table.id);
+            const status = resa ? resa.status : 'free';
+
+            const spot = document.createElement('div');
+            spot.className = 'table-spot';
+            spot.onclick = () => selectTable(table.id);
+
+            let alertHtml = '';
+            if (resa) {
+                if (resa.tags.includes('allergy') || resa.allergies) {
+                    alertHtml = '<div class="table-alert allergy">⚠</div>';
+                } else if (resa.tags.includes('birthday')) {
+                    alertHtml = '<div class="table-alert birthday">🎂</div>';
+                }
+            }
+
+            spot.innerHTML = `
+                <div class="table-shape ${table.shape} status-${status} ${selectedTableId === table.id ? 'selected' : ''}">
+                    <div class="table-number">T${table.id}</div>
+                    <div class="table-seats">${table.seats} pl.</div>
+                    ${resa ? `<div class="table-client-preview">${resa.name}</div>` : ''}
+                    ${alertHtml}
+                </div>
+            `;
+
+            grid.appendChild(spot);
+        });
+    }
+
+    function renderStats() {
+        const occupiedIds = reservations.map(r => r.tableId);
+        const freeTables = tables.filter(t => !occupiedIds.includes(t.id));
+        const totalCovers = reservations.reduce((sum, r) => sum + r.guests, 0);
+        const estimatedRevenue = totalCovers * 70;
+
+        document.getElementById('stat-free').textContent = freeTables.length;
+        document.getElementById('stat-reserved').textContent = reservations.length;
+        document.getElementById('stat-covers').textContent = totalCovers;
+        document.getElementById('stat-revenue').textContent = estimatedRevenue.toLocaleString('fr-FR') + ' \u20ac';
+
+        document.getElementById('tab-list').textContent = `R\u00e9servations (${reservations.length})`;
+    }
+
+    function renderDetail(tableId) {
+        const table = tables.find(t => t.id === tableId);
+        const resa = reservations.find(r => r.tableId === tableId);
+        const status = resa ? resa.status : 'free';
+
+        document.getElementById('detail-empty').style.display = 'none';
+        document.getElementById('detail-view').classList.add('active');
+
+        const badge = document.getElementById('detail-badge');
+        badge.textContent = `T${table.id}`;
+        badge.className = 'detail-table-badge';
+        badge.style.background = status === 'free' ? 'var(--status-free-bg)' :
+                                 status === 'reserved' ? 'var(--status-reserved-bg)' :
+                                 status === 'active' ? 'var(--status-active-bg)' :
+                                 'var(--status-clear-bg)';
+        badge.style.borderLeft = `3px solid ${
+            status === 'free' ? 'var(--status-free)' :
+            status === 'reserved' ? 'var(--status-reserved)' :
+            status === 'active' ? 'var(--status-active)' :
+            'var(--status-clear)'
+        }`;
+
+        document.getElementById('detail-name').textContent = resa ? resa.name : 'Table libre';
+        document.getElementById('detail-type-seats').textContent =
+            `${table.shape === 'round' ? 'Ronde' : 'Carr\u00e9e'} \u2022 ${table.seats} places`;
+
+        document.getElementById('detail-status').value = status;
+
+        const fields = document.getElementById('detail-fields');
+        fields.innerHTML = '';
+
+        if (resa) {
+            const tagsHtml = resa.tags.map(tag => {
+                if (tag === 'allergy') return '<span class="tag allergy">\u26a0 Allergie</span>';
+                if (tag === 'birthday') return '<span class="tag birthday">\ud83c\udf82 Anniversaire</span>';
+                if (tag === 'vip') return '<span class="tag vip">\u2b50 VIP</span>';
+                return '';
+            }).join(' ');
+
+            fields.innerHTML = `
+                ${tagsHtml ? `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">${tagsHtml}</div>` : ''}
+                <div class="detail-field">
+                    <div class="detail-field-label">Heure de r\u00e9servation</div>
+                    <div class="detail-field-value">${resa.time}</div>
+                </div>
+                <div class="detail-field">
+                    <div class="detail-field-label">Nombre de personnes</div>
+                    <div class="detail-field-value">${resa.guests} couverts</div>
+                </div>
+                ${resa.allergies ? `
+                <div class="detail-field">
+                    <div class="detail-field-label">Allergies</div>
+                    <div class="detail-field-value allergy">\u26a0\ufe0f ${resa.allergies}</div>
+                </div>` : ''}
+                ${resa.notes ? `
+                <div class="detail-field">
+                    <div class="detail-field-label">Notes sp\u00e9ciales</div>
+                    <div class="detail-field-value note">${resa.notes}</div>
+                </div>` : ''}
+            `;
+        } else {
+            fields.innerHTML = `
+                <div style="text-align:center;padding:32px 0;color:var(--text-muted);">
+                    <p style="font-size:14px;">Table disponible</p>
+                    <p style="font-size:12px;margin-top:8px;">${table.seats} places \u2022 ${table.shape === 'round' ? 'Ronde' : 'Carr\u00e9e'}</p>
+                </div>
+            `;
+        }
+    }
+
+    function renderReservationList() {
+        const list = document.getElementById('reservation-list');
+        const sorted = [...reservations].sort((a, b) => a.time.localeCompare(b.time));
+
+        list.innerHTML = sorted.map(r => {
+            const statusLabels = {
+                free: 'Libre',
+                reserved: 'R\u00e9serv\u00e9e',
+                active: 'En cours',
+                clear: '\u00c0 d\u00e9barrasser'
+            };
+
+            let tags = '';
+            if (r.allergies) tags += ' \u2022 \u26a0\ufe0f';
+            if (r.tags.includes('birthday')) tags += ' \u2022 \ud83c\udf82';
+            if (r.tags.includes('vip')) tags += ' \u2022 \u2b50';
+
+            return `
+                <div class="resa-item" onclick="selectTable(${r.tableId}); switchTab('detail');">
+                    <div class="resa-time">${r.time}</div>
+                    <div class="resa-info">
+                        <div class="resa-name">${r.name}${tags}</div>
+                        <div class="resa-meta">${r.guests} pers. \u2022 ${statusLabels[r.status]}</div>
+                    </div>
+                    <div class="resa-table-num">T${r.tableId}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ========== INTERACTIONS ==========
+    function selectTable(id) {
+        selectedTableId = id;
+        switchTab('detail');
+        render();
+    }
+
+    function changeStatus() {
+        if (!selectedTableId) return;
+        const newStatus = document.getElementById('detail-status').value;
+        const resa = reservations.find(r => r.tableId === selectedTableId);
+
+        if (resa) {
+            if (newStatus === 'free') {
+                reservations = reservations.filter(r => r.tableId !== selectedTableId);
+            } else {
+                resa.status = newStatus;
+            }
+        }
+        render();
+        showToast(`Table T${selectedTableId} \u2192 ${newStatus === 'free' ? 'Lib\u00e9r\u00e9e' : newStatus === 'reserved' ? 'R\u00e9serv\u00e9e' : newStatus === 'active' ? 'En cours' : '\u00c0 d\u00e9barrasser'}`);
+    }
+
+    function switchTab(tab) {
+        document.getElementById('tab-detail').classList.toggle('active', tab === 'detail');
+        document.getElementById('tab-list').classList.toggle('active', tab === 'list');
+
+        document.getElementById('detail-empty').style.display = (tab === 'detail' && !selectedTableId) ? 'flex' : 'none';
+        document.getElementById('detail-view').classList.toggle('active', tab === 'detail' && !!selectedTableId);
+        document.getElementById('reservation-list').classList.toggle('active', tab === 'list');
+    }
+
+    // ========== MODAL ==========
+    function openModal() {
+        const select = document.getElementById('form-table');
+        const occupiedIds = reservations.map(r => r.tableId);
+        select.innerHTML = tables.map(t => {
+            const taken = occupiedIds.includes(t.id);
+            return `<option value="${t.id}" ${taken ? 'disabled' : ''}>
+                T${t.id} \u2014 ${t.shape === 'round' ? 'Ronde' : 'Carr\u00e9e'} (${t.seats} pl.)${taken ? ' \u2022 Occup\u00e9e' : ''}
+            </option>`;
+        }).join('');
+
+        // Select first free table
+        const firstFree = tables.find(t => !occupiedIds.includes(t.id));
+        if (firstFree) select.value = firstFree.id;
+
+        document.getElementById('form-name').value = '';
+        document.getElementById('form-guests').value = '2';
+        document.getElementById('form-time').value = '20:00';
+        document.getElementById('form-allergies').value = '';
+        document.getElementById('form-notes').value = '';
+
+        document.getElementById('modal-overlay').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    function closeModalOutside(e) {
+        if (e.target === e.currentTarget) closeModal();
+    }
+
+    function addReservation() {
+        const name = document.getElementById('form-name').value.trim();
+        const guests = parseInt(document.getElementById('form-guests').value) || 2;
+        const time = document.getElementById('form-time').value;
+        const tableId = parseInt(document.getElementById('form-table').value);
+        const allergies = document.getElementById('form-allergies').value.trim();
+        const notes = document.getElementById('form-notes').value.trim();
+
+        if (!name) {
+            showToast('Veuillez entrer le nom du client');
+            return;
+        }
+
+        const tags = [];
+        if (allergies) tags.push('allergy');
+
+        reservations.push({
+            id: Date.now(),
+            tableId,
+            name,
+            guests,
+            time,
+            allergies,
+            notes,
+            status: 'reserved',
+            tags
+        });
+
+        closeModal();
+        selectedTableId = tableId;
+        render();
+        showToast(`R\u00e9servation ajout\u00e9e \u2014 ${name}, T${tableId}`);
+    }
+
+    // ========== UTILS ==========
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').textContent =
+            now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+        document.getElementById('date').textContent =
+            now.toLocaleDateString('fr-FR', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+    }
+
+    // ========== INIT ==========
+    updateClock();
+    setInterval(updateClock, 10000);
+    render();
+</script>
+
+</body>
+</html>
