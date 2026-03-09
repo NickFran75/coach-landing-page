@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoachPro Paris - Coaching Business &amp; Leadership</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+    <!-- Calendly CSS -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==============================
+           NAVIGATION
+           ============================== */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .site-nav-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+        }
+
+        .site-nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 24px;
+            color: #c8e630;
+            text-decoration: none;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .site-nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .site-nav-link {
+            color: #a1a1a1;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .site-nav-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-nav {
+            font-size: 13px;
+            padding: 12px 24px;
+            flex-shrink: 0;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* ==============================
+           SHARED SECTION STYLES
+           ============================== */
+        .section-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #a1a1a1;
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ==============================
+           HERO (existing)
+           ============================== */
+        .landing {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 48px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding-top: 16px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 72px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #a1a1a1;
+            max-width: 480px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .badge svg {
+            width: 22px;
+            height: 22px;
+            color: #e0e0e0;
+        }
+
+        .cta-row {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #c8e630;
+            color: #0a0a0a;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 16px 32px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: #d4f040;
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .link-secondary {
+            color: #a1a1a1;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .link-secondary:hover {
+            color: #ffffff;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .stat-card {
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card .label {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a1a1a1;
+            max-width: 220px;
+        }
+
+        .stat-card .number {
+            font-size: 72px;
+            font-weight: 600;
+            letter-spacing: -2px;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        /* RIGHT COLUMN */
+        .right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 6px 6px 6px 20px;
+            gap: 12px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: #a1a1a1;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-bar input::placeholder {
+            color: #666;
+        }
+
+        .btn-search {
+            background: #c8e630;
+            color: #0a0a0a;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s;
+        }
+
+        .btn-search:hover {
+            background: #d4f040;
+        }
+
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4px;
+        }
+
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .featured-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 380px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .featured-card .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-card .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+        }
+
+        .featured-card .tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(30,30,30,0.85);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+
+        .featured-card .rating {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #c8e630;
+            color: #0a0a0a;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .featured-card .rating .star {
+            font-size: 11px;
+        }
+
+        .featured-card .card-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .featured-card .name {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .featured-card .experience {
+            font-size: 13px;
+            color: #a1a1a1;
+        }
+
+        .btn-contact {
+            background: #fff;
+            color: #0a0a0a;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-contact:hover {
+            background: #e0e0e0;
+        }
+
+        .mentors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .mentor-card {
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mentor-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mentor-card .tag-sm {
+            background: #1e1e1e;
+            color: #d0d0d0;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+
+        .mentor-card .rating-sm {
+            font-size: 12px;
+            font-weight: 600;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .mentor-card .rating-sm .star {
+            color: #c8e630;
+            font-size: 11px;
+        }
+
+        .mentor-card .name-sm {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .mentor-card .exp-sm {
+            font-size: 13px;
+            color: #a1a1a1;
+        }
+
+        /* ==============================
+           SERVICES
+           ============================== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: #c8e630;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(200, 230, 48, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c8e630;
+        }
+
+        .service-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .service-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .service-card-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #a1a1a1;
+            flex: 1;
+        }
+
+        .service-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .service-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: #c8e630;
+        }
+
+        .service-cta {
+            font-size: 14px;
+            font-weight: 500;
+            color: #a1a1a1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .service-cta:hover {
+            color: #ffffff;
+        }
+
+        /* ==============================
+           TESTIMONIALS
+           ============================== */
+        .testimonials {
+            background: #0f0f0f;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star-filled {
+            color: #c8e630;
+            font-size: 18px;
+        }
+
+        .testimonial-quote {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #e0e0e0;
+            font-style: italic;
+            flex: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .testimonial-photo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #2a2a2a;
+        }
+
+        .testimonial-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .testimonial-company {
+            font-size: 13px;
+            color: #a1a1a1;
+        }
+
+        /* ==============================
+           BLOG
+           ============================== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .blog-card {
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s;
+        }
+
+        .blog-card:hover {
+            border-color: #c8e630;
+        }
+
+        .blog-card-img-wrap {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover .blog-card-img {
+            transform: scale(1.05);
+        }
+
+        .blog-card-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(8px);
+            color: #c8e630;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+
+        .blog-card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .blog-card-date {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .blog-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .blog-card-excerpt {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #a1a1a1;
+            flex: 1;
+        }
+
+        .blog-card-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: #c8e630;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .blog-card-link:hover {
+            color: #d4f040;
+        }
+
+        /* ==============================
+           CALENDLY
+           ============================== */
+        .calendly-section {
+            background: #0f0f0f;
+        }
+
+        .calendly-embed-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+
+        .calendly-inline-widget {
+            min-width: 320px;
+            height: 700px;
+        }
+
+        /* ==============================
+           CONTACT
+           ============================== */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info .section-title {
+            text-align: left;
+        }
+
+        .contact-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #a1a1a1;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: #e0e0e0;
+        }
+
+        .contact-detail-item svg {
+            width: 20px;
+            height: 20px;
+            color: #c8e630;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .form-input {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 14px 20px;
+            color: #ffffff;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input::placeholder {
+            color: #666;
+        }
+
+        .form-input:focus {
+            border-color: #c8e630;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            align-self: flex-start;
+        }
+
+        /* ==============================
+           FOOTER
+           ============================== */
+        .site-footer {
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .footer-inner {
+            padding-top: 60px;
+            padding-bottom: 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #a1a1a1;
+            max-width: 280px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .footer-link {
+            font-size: 14px;
+            color: #a1a1a1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #c8e630;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #a1a1a1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a2a2a;
+            padding-top: 24px;
+            text-align: center;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* ==============================
+           RESPONSIVE — TABLET
+           ============================== */
+        @media (max-width: 1024px) {
+            .landing {
+                grid-template-columns: 1fr;
+                padding: 32px 24px;
+            }
+            .hero-title {
+                font-size: 52px;
+            }
+            .stat-card .number {
+                font-size: 52px;
+            }
+
+            /* Nav */
+            .site-nav-inner {
+                padding: 14px 24px;
+            }
+            .site-nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-bottom: 1px solid #2a2a2a;
+                padding: 16px 24px;
+                gap: 4px;
+            }
+            .site-nav-links.nav-open {
+                display: flex;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            .site-nav {
+                position: sticky;
+            }
+
+            /* Sections */
+            .section-container {
+                padding: 60px 24px;
+            }
+            .section-title {
+                font-size: 38px;
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .contact-info .section-title {
+                text-align: center;
+            }
+            .contact-info {
+                text-align: center;
+                align-items: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        /* ==============================
+           RESPONSIVE — MOBILE
+           ============================== */
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 38px;
+            }
+            .badges {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .mentors-grid {
+                grid-template-columns: 1fr;
+            }
+            .stat-card .number {
+                font-size: 44px;
+            }
+            .featured-card {
+                height: 320px;
+            }
+
+            /* Nav */
+            .btn-nav {
+                display: none;
+            }
+
+            /* Sections */
+            .section-container {
+                padding: 48px 20px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .calendly-inline-widget {
+                height: 600px;
+            }
+            .btn-submit {
+                align-self: stretch;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================== NAVIGATION ============================== -->
+    <nav class="site-nav" id="site-nav">
+        <div class="site-nav-inner">
+            <a href="#hero" class="site-nav-logo">CoachPro</a>
+            <div class="site-nav-links" id="nav-links">
+                <a href="#services" class="site-nav-link">Services</a>
+                <a href="#temoignages" class="site-nav-link">Avis clients</a>
+                <a href="#blog" class="site-nav-link">Conseils</a>
+                <a href="#calendly" class="site-nav-link">Rendez-vous</a>
+                <a href="#contact" class="site-nav-link">Contact</a>
+            </div>
+            <a href="#calendly" class="btn-primary btn-nav">
+                Prendre rendez-vous
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================== HERO (existing) ============================== -->
+    <main class="landing" id="hero">
+        <section class="left">
+            <h1 class="hero-title">Votre chemin<br>vers la réussite</h1>
+
+            <p class="hero-subtitle">
+                Trouvez le coach business qui vous accompagnera
+                dans votre développement professionnel, atteindra
+                vos objectifs et construira l'avenir dont vous rêvez.
+            </p>
+
+            <div class="badges">
+                <span class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                    En ligne
+                </span>
+                <span class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    À votre rythme
+                </span>
+                <span class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Certifié
+                </span>
+            </div>
+
+            <div class="cta-row">
+                <a href="#services" class="btn-primary">
+                    Commencer maintenant
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#temoignages" class="link-secondary">En savoir plus</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <p class="label">Coachs et mentors avec une expertise reconnue.</p>
+                    <p class="number">2799</p>
+                </div>
+                <div class="stat-card">
+                    <p class="label">Clients accompagnés qui ont atteint leurs objectifs.</p>
+                    <p class="number">801K</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="right">
+            <div class="search-bar">
+                <input type="text" placeholder="Ex : Management d'équipe">
+                <button class="btn-search">Rechercher</button>
+            </div>
+
+            <div class="filter-row">
+                <button class="filter-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="6" y1="18" x2="18" y2="18"/><circle cx="10" cy="6" r="2" fill="currentColor"/><circle cx="14" cy="12" r="2" fill="currentColor"/><circle cx="8" cy="18" r="2" fill="currentColor"/></svg>
+                    Filtrer
+                </button>
+                <button class="filter-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M7 4l-3 3M7 4l3 3"/><path d="M17 20V4M17 20l-3-3M17 20l3-3"/></svg>
+                    Trier
+                </button>
+            </div>
+
+            <div class="featured-card">
+                <img class="card-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=500&fit=crop&crop=face" alt="Antoine Moreau">
+                <div class="overlay"></div>
+                <span class="tag">Stratégie</span>
+                <span class="rating">4.9 <span class="star">&#9733;</span></span>
+                <div class="card-info">
+                    <div>
+                        <p class="name">Antoine Moreau</p>
+                        <p class="experience">32 ans d'expérience</p>
+                    </div>
+                    <button class="btn-contact">Contacter</button>
+                </div>
+            </div>
+
+            <div class="mentors-grid">
+                <div class="mentor-card">
+                    <div class="card-header">
+                        <span class="tag-sm">Finance</span>
+                        <span class="rating-sm">4.7 <span class="star">&#9733;</span></span>
+                    </div>
+                    <p class="name-sm">Pierre Duval</p>
+                    <p class="exp-sm">24 ans d'expérience</p>
+                </div>
+                <div class="mentor-card">
+                    <div class="card-header">
+                        <span class="tag-sm">Management</span>
+                        <span class="rating-sm">4.8 <span class="star">&#9733;</span></span>
+                    </div>
+                    <p class="name-sm">Claire Martin</p>
+                    <p class="exp-sm">28 ans d'expérience</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================== SERVICES ============================== -->
+    <section class="services" id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Mes services</h2>
+                <p class="section-subtitle">Des accompagnements sur mesure pour chaque étape de votre parcours professionnel.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <h3 class="service-card-title">Coaching individuel</h3>
+                    <p class="service-card-desc">Un accompagnement personnalisé pour développer votre potentiel, clarifier votre vision et atteindre vos objectifs professionnels.</p>
+                    <div class="service-card-footer">
+                        <span class="service-price">150&euro;/séance</span>
+                        <a href="#contact" class="service-cta">Découvrir &rarr;</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="service-card-title">Coaching d'équipe</h3>
+                    <p class="service-card-desc">Renforcez la cohésion de votre équipe, améliorez la communication et boostez la performance collective.</p>
+                    <div class="service-card-footer">
+                        <span class="service-price">350&euro;/session</span>
+                        <a href="#contact" class="service-cta">Découvrir &rarr;</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3 class="service-card-title">Stratégie d'entreprise</h3>
+                    <p class="service-card-desc">Définissez une vision claire, structurez votre croissance et prenez des décisions stratégiques éclairées.</p>
+                    <div class="service-card-footer">
+                        <span class="service-price">500&euro;/jour</span>
+                        <a href="#contact" class="service-cta">Découvrir &rarr;</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h3 class="service-card-title">Leadership</h3>
+                    <p class="service-card-desc">Développez votre posture de leader, inspirez vos collaborateurs et incarnez le changement dans votre organisation.</p>
+                    <div class="service-card-footer">
+                        <span class="service-price">200&euro;/séance</span>
+                        <a href="#contact" class="service-cta">Découvrir &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================== TEMOIGNAGES ============================== -->
+    <section class="testimonials" id="temoignages">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Ce que disent nos clients</h2>
+                <p class="section-subtitle">Des résultats concrets et mesurables pour chacun de nos clients accompagnés.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        &laquo; Le coaching m'a permis de doubler le chiffre d'affaires de mon entreprise en 18 mois. Une transformation profonde de ma vision du leadership. &raquo;
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <img class="testimonial-photo" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=96&h=96&fit=crop&crop=face" alt="Sophie Laurent">
+                        <div>
+                            <p class="testimonial-name">Sophie Laurent</p>
+                            <p class="testimonial-company">CEO, TechVision Paris</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        &laquo; Un accompagnement exceptionnel. J'ai pu restructurer mon équipe de direction et retrouver un équilibre entre performance et bien-être. &raquo;
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <img class="testimonial-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face" alt="Marc Dubois">
+                        <div>
+                            <p class="testimonial-name">Marc Dubois</p>
+                            <p class="testimonial-company">DRH, Groupe Lumina</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                        <span class="star-filled">&#9733;</span>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        &laquo; De la création de mon business plan jusqu'à ma première levée de fonds, le coaching a été un accélérateur décisif pour mon parcours entrepreneurial. &raquo;
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <img class="testimonial-photo" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=96&h=96&fit=crop&crop=face" alt="Camille Renard">
+                        <div>
+                            <p class="testimonial-name">Camille Renard</p>
+                            <p class="testimonial-company">Fondatrice, NovaSanté</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================== BLOG / CONSEILS ============================== -->
+    <section class="blog" id="blog">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Conseils &amp; Ressources</h2>
+                <p class="section-subtitle">Des articles pour nourrir votre réflexion et accélérer votre croissance professionnelle.</p>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-card-img-wrap">
+                        <img class="blog-card-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop" alt="Leadership d'équipe">
+                        <span class="blog-card-tag">Leadership</span>
+                    </div>
+                    <div class="blog-card-body">
+                        <time class="blog-card-date">8 mars 2026</time>
+                        <h3 class="blog-card-title">5 habitudes des leaders qui transforment leur équipe</h3>
+                        <p class="blog-card-excerpt">Découvrez les pratiques quotidiennes qui distinguent les managers ordinaires des leaders inspirants au sein de leur organisation.</p>
+                        <a href="#" class="blog-card-link">Lire la suite &rarr;</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-img-wrap">
+                        <img class="blog-card-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop" alt="Stratégie business">
+                        <span class="blog-card-tag">Stratégie</span>
+                    </div>
+                    <div class="blog-card-body">
+                        <time class="blog-card-date">2 mars 2026</time>
+                        <h3 class="blog-card-title">Comment définir une stratégie de croissance durable</h3>
+                        <p class="blog-card-excerpt">Les clés pour construire un plan de croissance réaliste qui aligne vos ambitions avec vos ressources disponibles.</p>
+                        <a href="#" class="blog-card-link">Lire la suite &rarr;</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card-img-wrap">
+                        <img class="blog-card-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" alt="Bien-être au travail">
+                        <span class="blog-card-tag">Bien-être</span>
+                    </div>
+                    <div class="blog-card-body">
+                        <time class="blog-card-date">24 février 2026</time>
+                        <h3 class="blog-card-title">Concilier performance et équilibre de vie en tant que dirigeant</h3>
+                        <p class="blog-card-excerpt">Apprenez à poser des limites saines tout en maintenant un haut niveau d'exigence professionnelle au quotidien.</p>
+                        <a href="#" class="blog-card-link">Lire la suite &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================== CALENDLY ============================== -->
+    <section class="calendly-section" id="calendly">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Réservez votre séance découverte</h2>
+                <p class="section-subtitle">30 minutes d'échange gratuit pour définir vos objectifs et voir comment je peux vous accompagner.</p>
+            </div>
+            <div class="calendly-embed-wrap">
+                <!-- Remplacez YOUR_USERNAME par votre identifiant Calendly -->
+                <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_USERNAME/30min?background_color=1a1a1a&text_color=ffffff&primary_color=c8e630"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================== CONTACT ============================== -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <h2 class="section-title">Parlons de votre projet</h2>
+                    <p class="contact-desc">Envoyez-moi un message et je vous répondrai sous 24 heures. Chaque parcours est unique, discutons du vôtre.</p>
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Paris, France</span>
+                        </div>
+                        <div class="contact-detail-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <span>contact@coachpro-paris.fr</span>
+                        </div>
+                        <div class="contact-detail-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>+33 1 23 45 67 89</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Remplacez YOUR_FORM_ID par votre identifiant Formspree -->
+                <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Nom complet</label>
+                            <input class="form-input" type="text" id="name" name="name" placeholder="Jean Dupont" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-input" type="email" id="email" name="email" placeholder="jean@exemple.fr" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Téléphone</label>
+                        <input class="form-input" type="tel" id="phone" name="phone" placeholder="+33 6 12 34 56 78">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Votre message</label>
+                        <textarea class="form-input form-textarea" id="message" name="message" placeholder="Décrivez votre projet ou vos objectifs..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-submit">
+                        Envoyer le message
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================== FOOTER ============================== -->
+    <footer class="site-footer">
+        <div class="section-container footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#hero" class="site-nav-logo">CoachPro</a>
+                    <p class="footer-tagline">Votre partenaire pour la réussite professionnelle à Paris. Coaching business, leadership et stratégie d'entreprise.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navigation</h4>
+                    <a href="#services" class="footer-link">Services</a>
+                    <a href="#temoignages" class="footer-link">Avis clients</a>
+                    <a href="#blog" class="footer-link">Conseils</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Services</h4>
+                    <a href="#services" class="footer-link">Coaching individuel</a>
+                    <a href="#services" class="footer-link">Coaching d'équipe</a>
+                    <a href="#services" class="footer-link">Stratégie d'entreprise</a>
+                    <a href="#services" class="footer-link">Leadership</a>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contact</h4>
+                    <p class="footer-text">Paris, France</p>
+                    <p class="footer-text">contact@coachpro-paris.fr</p>
+                    <p class="footer-text">+33 1 23 45 67 89</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 CoachPro Paris. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Calendly Script -->
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+    <!-- Mobile nav toggle -->
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-open');
+        });
+
+        // Fermer le menu au clic sur un lien
+        navLinks.querySelectorAll('.site-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav-open');
+            });
+        });
+    </script>
+</body>
+</html>
